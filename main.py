@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.schemas import ChatRequest, ChatResponse
+from app.schemas import ChatRequest
 from app.chatbot import process_chat
 
 app = FastAPI(
@@ -7,10 +7,18 @@ app = FastAPI(
     version="2.0"
 )
 
+@app.get("/")
+def root():
+    return {
+        "message": "SHL Conversational Assessment Recommender API is live!",
+        "health_endpoint": "/health",
+        "chat_endpoint": "/chat",
+        "swagger_docs": "/docs"
+    }
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
-
 
 @app.post("/chat")
 def chat(request: ChatRequest):
