@@ -12,3 +12,4 @@ python-dotenv
 groq
 pydantic
 scikit-learn
+google-generativeai
