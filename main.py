@@ -11,7 +11,14 @@ app = FastAPI(
 def health():
     return {"status": "ok"}
 
-@app.post("/chat", response_model=ChatResponse)
+
+@app.post("/chat")
 def chat(request: ChatRequest):
-    response = process_chat(request.messages)
-    return response
+    try:
+        response = process_chat(request.messages)
+        return response
+
+    except Exception as e:
+        import traceback
+        print(traceback.format_exc())
+        return {"error": str(e)}
